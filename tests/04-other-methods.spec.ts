@@ -66,7 +66,7 @@ test('Long-running test', async ({ page }) => {
  * test.skip()	        Skip the test.
  * test.only()	        Run only this test.
  * test.fail()	        Mark test as expected to fail.
- * test.slow()	        Mark test as slow.
+ * test.slow()	        Mark test as slow.  triples its default timeout duration.
  * test.step()	        Divide test into smaller steps for better reporting.
  * test.setTimeout()	Set custom timeout for a test.
  * test.info()	        Retrieve metadata about the running test.
