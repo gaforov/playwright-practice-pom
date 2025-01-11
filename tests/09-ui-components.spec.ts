@@ -1,8 +1,12 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+    await page.goto('http://localhost:4200/');
+});
+
+
 test.describe('Form Layouts Page', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:4200/')
         await page.getByText('Forms').click();
         await page.getByText('Form Layouts').click();
     });
@@ -53,8 +57,50 @@ test.describe('Form Layouts Page', () => {
 
         const option2 = usingTheGridPage.getByText('Option 2');
         await option2.check();  // when using getByText() no need to use check({ force: true }) because it will work without it.
-        option2.isChecked();
+        const radioStatus = await option2.isChecked();
+        expect(radioStatus).toBe(true);  // strict equality, recommended assertion. 
+        // expect(radioStatus).toBeTruthy(); // This matcher checks for "truthiness," meaning it passes if the value evaluates to true in a boolean context. This includes values like non-empty strings, non-zero numbers, objects, arrays, and true itself
+
+        await expect(option2).toBeChecked(); // another way for assertion
     });
 
 
 });
+
+test('Checkboxes', async ({ page }) => {
+    await page.getByText('Modal & Overlays').click();
+    await page.getByText('Toastr').click();
+    await page.waitForTimeout(2000);  // add short delay before interaction
+    await page.getByRole('checkbox', { name: 'Hide on click' }).uncheck({ force: true });
+    await page.getByRole('checkbox', { name: 'Prevent arising of duplicate toast' }).check({ force: true });
+
+    /* An idempotent operation is one that can be applied multiple times without changing the result beyond the initial application.
+        For example:
+        Calling .check() on a checkbox ensures the checkbox is checked, regardless of whether it was already checked or not.
+        Similarly, .uncheck() ensures the checkbox is unchecked, even if it was already unchecked. */
+});
+
+test('Check all checkboxes', async ({ page }) => {
+    await page.getByText('Modal & Overlays').click();
+    await page.getByText('Toastr').click();
+    await page.waitForTimeout(2000);  // add short delay before interaction, for user's UI visibility only. 
+
+    const allCheckboxes = page.getByRole('checkbox');
+    for (const checkbox of await allCheckboxes.all()) {
+        await checkbox.check({ force: true });
+        await expect(checkbox).toBeChecked();
+    }
+});
+
+test('Uncheck all checkboxes', async ({ page }) => {
+    await page.getByText('Modal & Overlays').click();
+    await page.getByText('Toastr').click();
+    await page.waitForTimeout(2000);  // add short delay before interaction, for user's UI visibility only. 
+
+    const allCheckboxes = page.getByRole('checkbox');
+    for (const checkbox of await allCheckboxes.all()) {
+        await checkbox.uncheck({ force: true });
+        await expect(checkbox).not.toBeChecked();
+    }
+});
+
