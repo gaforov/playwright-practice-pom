@@ -35,12 +35,19 @@ test('dropdowns', async ({ page }) => {
         "Corporate": "rgb(255, 255, 255)"
     }
 
-    await dropDownMenu.click();
-    for (const color in colors) {
-        await optionList.filter({ hasText: color }).click();
-        await expect(header).toHaveCSS('background-color', colors[color]);
-        if (color != 'Corporate')
-            await dropDownMenu.click();
+    // Approach 1
+    // for (const color in colors) {
+    //     await dropDownMenu.click();
+    //     await optionList.filter({ hasText: color }).click();
+    //     await expect(header).toHaveCSS('background-color', colors[color]);
+    // }
+
+    // Approach 2
+    for (const [theme, expectedColor] of Object.entries(colors)) {
+        await page.waitForTimeout(500);
+        await dropDownMenu.click();
+        await optionList.filter({ hasText: theme }).click();
+        await expect(header).toHaveCSS('background-color', expectedColor);
     }
 
 });
