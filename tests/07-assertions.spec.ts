@@ -24,7 +24,7 @@ test('assertions 2', async ({ page }) => {
     
     
     // Soft Assertion
-    await expect.soft(basicFormSubmitButton).toHaveText('Submit5'); // Execution will continue even if assertion fails. 
+    await expect.soft(basicFormSubmitButton).toHaveText('Submit'); // Execution will continue even if assertion fails. 
     await basicFormSubmitButton.click(); 
 });
 

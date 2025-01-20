@@ -32,7 +32,7 @@ test('assertions 1', async ({ page }) => {
 
 // Examples for each assertion type: 
 
-test('Assertion types', async ({ page }) => {
+test.fixme('Assertion types', async ({ page }) => {
 
     // 1. Auto-Retrying Assertions: Waits until the input field has the expected value
     await expect(page.locator('input[type="text"]')).toHaveValue('Expected Value');

@@ -75,6 +75,10 @@ test('Delete all rows 2', async ({ page }) => {
     console.log(`Number of rows in the table: ${tableRowCount}`);  // For debugging.
 
     while (await smartTableRows.count() > 0) {
+        if ((await smartTableRows.first().textContent()).includes('No data found')){
+            console.log('All rows deleted, and "No data found" message is displayed.');
+            break;
+        }
         await smartTableRows.first().locator('.nb-trash').click();
     }
 

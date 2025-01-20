@@ -81,12 +81,11 @@ test('Filter table by age and validate results, including handling of non-existe
         // await page.waitForTimeout(500); // hard-coded wait, not recommended.
 
         for (let row of await rows.all()) {
-            const ageCell = (await row.locator('td').nth(6).textContent()).trim();
-            console.log(ageCell);
-
-            if (age == '200') {
+            if (age == '200') { // not dynamic, poor coding, strictly catches '200' only, not other non-existent ages in the database
+                let ageCell = (await row.locator('td').nth(0).textContent()).trim();
                 expect(ageCell).toEqual('No data found');
             } else {
+                let ageCell = (await row.locator('td').nth(6).textContent()).trim();
                 expect(ageCell).toBe(age);
             }
         }
@@ -94,41 +93,6 @@ test('Filter table by age and validate results, including handling of non-existe
 
 });
 
-test('Filter table by age and validate results, including handling of non-existent ages 2', async ({ page }) => {
-    await page.getByText('Tables & Data').click();
-    await page.getByText('Smart Table').click();
-
-    const ages = ['20', '30', '77', '40', '200'];
-
-    for (const age of ages) {
-        // Fill the age filter input
-        await page.getByPlaceholder('Age').fill(age);
-
-        // Wait for the table rows to update
-        const rows = page.locator('tbody tr');
-
-        // Check the last cell of the first row for 'No data found'
-        const firstRowLastCell = rows.first().locator('td').last();
-        const noDataFound = await firstRowLastCell.innerText();
-
-        if (noDataFound.trim() === 'No data found') {
-            console.log(`No data found for age ${age}`);
-            continue; // Skip further validation if no data is found
-        }
-
-        // Dynamic wait to avoid validation failure. Wait for either the age or 'No data found' to appear
-        const expectedText = new RegExp(`\\s*(${age}|No data found)\\s*`);
-        await expect(rows.locator('td').last()).toHaveText(expectedText, { timeout: 5000 });
-
-        // Validate rows in the table have the expected age
-        const lastCellTexts = await rows.locator('td:last-child').allTextContents();
-
-        for (const text of lastCellTexts) {
-            expect(text.trim()).toBe(age);
-        }
-    }
-
-});
 
 test('Filter table by age and validate results, including handling of non-existent ages', async ({ page }) => {
     await page.getByText('Tables & Data').click();

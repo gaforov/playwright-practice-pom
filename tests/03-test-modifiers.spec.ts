@@ -26,9 +26,9 @@ test.fixme('This test is not implemented yet', async ({ page }) => {
     When to Use:
        - To focus on a single test or a group of tests during development/debugging.
  */
-test.only('This is the only test that will run', async ({ page }) => {
-    await page.goto('https://example.com');
-});
+// test.only('This is the only test that will run', async ({ page }) => {
+//     await page.goto('https://example.com');
+// });
 
 
 /* test.describe.skip()
@@ -52,15 +52,15 @@ test.describe.skip('Skipped group of tests', () => {
     When to Use:
        - To focus on a specific group of tests during debugging or development.
 */
-test.describe.only('Focused group of tests', () => {
-    test('Test 1', async ({ page }) => {
-        // This will run
-    });
+// test.describe.only('Focused group of tests', () => {
+//     test('Test 1', async ({ page }) => {
+//         // This will run
+//     });
 
-    test('Test 2', async ({ page }) => {
-        // This will also run
-    });
-});
+//     test('Test 2', async ({ page }) => {
+//         // This will also run
+//     });
+// });
 
 
 /* test.use()

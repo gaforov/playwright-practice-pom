@@ -1,5 +1,10 @@
 import {test, expect} from "@playwright/test";
 
+test.beforeEach(async ({ page }) => {
+    await page.goto('http://localhost:4200/');
+});
+
+
 
 test('Handling Calendar', async ({ page }) => {
     await page.getByText('Forms').click();
