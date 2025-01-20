@@ -1,4 +1,4 @@
-# Playwright with JavaScript and TypeScript
+# Playwright Practice with JavaScript and TypeScript
 
 This repository contains an Angular project tailored for testing components using Playwright with both JavaScript and TypeScript. It serves as a comprehensive resource for understanding how Playwright handles various UI elements and components. The project is based on a modified and lightweight version of the Ngx-Admin Angular 14 application from [akveo.com](https://github.com/akveo/ngx-admin).
 
