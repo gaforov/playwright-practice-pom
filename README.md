@@ -72,3 +72,8 @@ This will open an interactive HTML report in your default browser, providing ins
 ##
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). 
+
+## Author
+
+This project is maintained by [Said](https://github.com/gaforov).  
+Feel free to reach out or explore more projects on the GitHub profile.
