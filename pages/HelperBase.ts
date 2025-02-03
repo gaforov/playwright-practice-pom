@@ -7,7 +7,7 @@ export class HelperBase {
         this.page = page;
     }
 
-    async waitForNumberOfSeconds(seconds: number) {
-        await this.page.waitForTimeout(seconds * 1000);
+    async waitForNumberOfSeconds(timeInSeconds: number) {
+        await this.page.waitForTimeout(timeInSeconds * 1000);
     }
 }

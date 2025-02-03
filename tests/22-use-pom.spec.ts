@@ -23,23 +23,25 @@ test('parameterized method', async ({ page }) => {
 
     await pm.navigateTo.formLayoutsPage();
 
+    // Using faker library to generate random names and emails each time the test runs. 
     await pm.onFormLayoutsPage.sumbitUsingTheGridForm('john.wick@gmail.com', 'jwick2025', 'Option 2');
     await pm.onFormLayoutsPage.submitInLineForm(randomFullName, randomEmail, true);
 
+    // Comment DatePicker section below, if you want to test random name and email generator
 
-    // await pm.navigateTo.datePickerPage();
-    // //await pm.navigationPage.datePickerPage(); this works too, if navigationPage is public, but for encapsualtion its better to use the other way -- nagivateTo() method
+    await pm.navigateTo.datePickerPage();
+    //await pm.navigationPage.datePickerPage(); this works too, if navigationPage is public, but for encapsualtion its better to use the other way -- nagivateTo() method
 
-    // // Single Day Selection
-    // await pm.onDatePickerPage.openSingleDayCalendar();
-    // const singleDay = await pm.onDatePickerPage.selectDayFromTodayInCalendar(2);
-    // const calendarInputField = page.getByPlaceholder('Form Picker');
-    // await expect(calendarInputField).toHaveValue(singleDay);
+    // Single Day Selection
+    await pm.onDatePickerPage.openSingleDayCalendar();
+    const singleDay = await pm.onDatePickerPage.selectDayFromTodayInCalendar(2);
+    const calendarInputField = page.getByPlaceholder('Form Picker');
+    await expect(calendarInputField).toHaveValue(singleDay);
 
-    //  // Range Selection
-    //  await pm.onDatePickerPage.openRangeCalendar();
-    //  const startDay = await pm.onDatePickerPage.selectDayFromTodayInCalendar(3);
-    //  const endDay = await pm.onDatePickerPage.selectDayFromTodayInCalendar(6);
-    //  const rangeInputField = page.getByPlaceholder('Range Picker');
-    //  await expect(rangeInputField).toHaveValue(`${startDay} - ${endDay}`);
+     // Range Selection
+     await pm.onDatePickerPage.openRangeCalendar();
+     const startDay = await pm.onDatePickerPage.selectDayFromTodayInCalendar(3);
+     const endDay = await pm.onDatePickerPage.selectDayFromTodayInCalendar(6);
+     const rangeInputField = page.getByPlaceholder('Range Picker');
+     await expect(rangeInputField).toHaveValue(`${startDay} - ${endDay}`);
 });
