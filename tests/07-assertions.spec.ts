@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 // Set up the test environment
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/');
+    await page.goto('/');
     await page.getByText('Forms').click();
     await page.getByText('Form Layouts').click();
 });
@@ -19,13 +19,13 @@ test('assertions 2', async ({ page }) => {
 
     // Auto-retrying assertions (Locator Assertions):
     await expect(basicFormSubmitButton).toHaveText('Submit'); // Asynchronous: retries until the text matches
-    
+
     // Important: Always use 'await' for locator-based assertions to leverage auto-retry!
-    
-    
+
+
     // Soft Assertion
     await expect.soft(basicFormSubmitButton).toHaveText('Submit'); // Execution will continue even if assertion fails. 
-    await basicFormSubmitButton.click(); 
+    await basicFormSubmitButton.click();
 });
 
 

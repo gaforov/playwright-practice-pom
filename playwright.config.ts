@@ -22,7 +22,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 1,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : undefined, // When 'undefined' will select number of workers dynamically based on CPU cores.
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -30,10 +30,17 @@ export default defineConfig({
     // actionTimeout: 5000,      // by default, no timeout
     // navigationTimeout: 5000,  // by default, no timeout
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
+    baseURL: 'http://localhost:4200/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    // deviceScaleFactor: 2,  // Higher DPI for better resolution
+    // viewport: { width: 1920, height: 1080 },  // default viewport size seto to HD
+    video: {
+      mode: 'retain-on-failure', // record videos for failing tests
+      size: { width: 1920, height: 1080 }, // viewport size
+    }
+
 
   },
 
@@ -42,6 +49,21 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      //fullyParallel: true, // <--- optioanlly, you can run in parallel per browser
+    },
+    {
+      name: 'dev',
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:4200/'  // replace with dev URL
+      },
+    },
+    {
+      name: 'qa',
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:4200' // replace with qa URL
+      },
     },
 
     // {

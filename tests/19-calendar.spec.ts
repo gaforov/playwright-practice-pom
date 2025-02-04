@@ -1,7 +1,7 @@
-import {test, expect} from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/');
+    await page.goto('/');
 });
 
 
@@ -79,7 +79,7 @@ test('Handling Calendar enhanced day picker 2', async ({ page }) => {
         }
 
         await page.locator('button.next-month').click();
-        await page.waitForTimeout(500); 
+        await page.waitForTimeout(500);
     }
 
     await page.locator('.day-cell:not(.bounding-month)').getByText(targetDay, { exact: true }).click();

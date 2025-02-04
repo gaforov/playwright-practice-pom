@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
 
+test.describe.configure({ mode: 'parallel' }); // <--- run this spec/test file in parallel mode, even though configuration set to false (fullyParallel: false) in playwright.config.ts
+
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:4200/');
+  await page.goto('/');
 });
 
 
@@ -37,7 +39,7 @@ test('Handling Dialog Pop Ups', async ({ page }) => {
   const tableRowCount = await smartTableRows.count();
   console.log(`Number of rows in the table: ${tableRowCount}`);  // For debugging.
   const rowsToDelete = Math.min(tableRowCount, 10);
-  for(let i = 0; i < rowsToDelete; i++) {
+  for (let i = 0; i < rowsToDelete; i++) {
     await smartTableRows.nth(i).locator('.nb-trash').click();
     console.log(await smartTableRows.nth(i).locator('td').nth(2).innerText());
   }

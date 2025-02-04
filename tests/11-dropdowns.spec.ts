@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/');
+    await page.goto('/');
 });
 
 test('dropdowns', async ({ page }) => {
@@ -16,7 +16,7 @@ test('dropdowns', async ({ page }) => {
     const dropDownMenu = page.locator('ngx-header nb-select');
     const optionList = page.getByRole('list').locator('nb-option');
     await dropDownMenu.click();  // click to expand options
-    await expect(optionList).toHaveText(Object.keys(colors)); 
+    await expect(optionList).toHaveText(Object.keys(colors));
 
     const header = page.locator('nb-layout-header');
 

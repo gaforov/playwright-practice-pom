@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/');
+    await page.goto('/');
 });
 
 
@@ -20,7 +20,7 @@ test('Handling Dialog Pop Ups', async ({ page }) => {
     console.log(`Number of rows in the table: ${tableRowCount}`);  // For debugging.
 
     for (let i = 0; i < tableRowCount; i++) {
-        await smartTableRows.nth(0).locator('.nb-trash').click(); 
+        await smartTableRows.nth(0).locator('.nb-trash').click();
         console.log(`Deleted row ${i + 1}`);
     }
 
@@ -75,7 +75,7 @@ test('Delete all rows 2', async ({ page }) => {
     console.log(`Number of rows in the table: ${tableRowCount}`);  // For debugging.
 
     while (await smartTableRows.count() > 0) {
-        if ((await smartTableRows.first().textContent()).includes('No data found')){
+        if ((await smartTableRows.first().textContent()).includes('No data found')) {
             console.log('All rows deleted, and "No data found" message is displayed.');
             break;
         }

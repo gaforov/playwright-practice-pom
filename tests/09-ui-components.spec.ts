@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/');
+    await page.goto('/');
 });
 
 
 test.describe('Form Layouts Page', () => {
-    test.describe.configure({retries: 2});  // This test group retry 2 times if test fails
+    test.describe.configure({ retries: 2 });  // This test group retry 2 times if test fails
     test.beforeEach(async ({ page }) => {
         await page.getByText('Forms').click();
         await page.getByText('Form Layouts').click();

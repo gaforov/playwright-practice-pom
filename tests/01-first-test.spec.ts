@@ -3,7 +3,7 @@ import { test } from '@playwright/test';
 test.describe('Test Suite 1', () => {
 
     test.beforeEach(async ({page}) => {
-        await page.goto('http://localhost:4200/');
+        await page.goto('/');
         await page.getByText('Forms').click();
         await page.getByText('Form Layouts').click();
     });

@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { PageManager } from '../pages/PageManager';
-import {faker} from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/');
+    await page.goto('/');
 });
 
 
@@ -25,6 +25,8 @@ test('parameterized method', async ({ page }) => {
 
     // Using faker library to generate random names and emails each time the test runs. 
     await pm.onFormLayoutsPage.sumbitUsingTheGridForm('john.wick@gmail.com', 'jwick2025', 'Option 2');
+
+    await pm.helperBase.waitForNumberOfSeconds(2); // Wait for 2 seconds before filling the inline form
     await pm.onFormLayoutsPage.submitInLineForm(randomFullName, randomEmail, true);
 
     // Comment DatePicker section below, if you want to test random name and email generator
@@ -38,10 +40,10 @@ test('parameterized method', async ({ page }) => {
     const calendarInputField = page.getByPlaceholder('Form Picker');
     await expect(calendarInputField).toHaveValue(singleDay);
 
-     // Range Selection
-     await pm.onDatePickerPage.openRangeCalendar();
-     const startDay = await pm.onDatePickerPage.selectDayFromTodayInCalendar(3);
-     const endDay = await pm.onDatePickerPage.selectDayFromTodayInCalendar(6);
-     const rangeInputField = page.getByPlaceholder('Range Picker');
-     await expect(rangeInputField).toHaveValue(`${startDay} - ${endDay}`);
+    // Range Selection
+    await pm.onDatePickerPage.openRangeCalendar();
+    const startDay = await pm.onDatePickerPage.selectDayFromTodayInCalendar(3);
+    const endDay = await pm.onDatePickerPage.selectDayFromTodayInCalendar(6);
+    const rangeInputField = page.getByPlaceholder('Range Picker');
+    await expect(rangeInputField).toHaveValue(`${startDay} - ${endDay}`);
 });
