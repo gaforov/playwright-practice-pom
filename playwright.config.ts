@@ -1,4 +1,22 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
+
+// Get the environment from command-line args or default to 'qa'
+const ENV = process.env.TEST_ENV || 'qa'; 
+
+// Define environment-specific URLs
+const baseUrls = {
+  dev: process.env.DEV_BASE_URL,
+  qa: process.env.QA_BASE_URL,
+  staging: process.env.STAGING_BASE_URL,
+  prod: process.env.PROD_BASE_URL
+};
+
+// Set the correct base URL based on the environment
+const baseURL = baseUrls[ENV];
 
 /**
  * Read environment variables from file.
@@ -30,7 +48,8 @@ export default defineConfig({
     // actionTimeout: 5000,      // by default, no timeout
     // navigationTimeout: 5000,  // by default, no timeout
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://localhost:4200/',
+    baseURL,
+    browserName: 'chromium',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -49,22 +68,24 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      //fullyParallel: true, // <--- optioanlly, you can run in parallel per browser
+      //fullyParallel: true, // <--- optioanlly, you can run in parallel per each browser
     },
-    {
-      name: 'dev',
-      use: {
-        ...devices['Desktop Chrome'],
-        baseURL: 'http://localhost:4200/'  // replace with dev URL
-      },
-    },
-    {
-      name: 'qa',
-      use: {
-        ...devices['Desktop Chrome'],
-        baseURL: 'http://localhost:4200' // replace with qa URL
-      },
-    },
+
+    // Alternative to .env file for handling testing environments. 
+    // {
+    //   name: 'dev',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     baseURL: 'http://localhost:4200/'  // replace with dev URL
+    //   },
+    // },
+    // {
+    //   name: 'qa',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     baseURL: 'http://localhost:4200' // replace with qa URL
+    //   },
+    // },
 
     // {
     //   name: 'firefox',
