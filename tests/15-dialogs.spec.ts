@@ -11,7 +11,7 @@ test('Handling Dialog Pop Ups', async ({ page }) => {
   await page.getByText('Tables & Data').click();
   await page.getByText('Smart Table').click();
 
-  page.on('dialog', dialog => {
+  page.on('dialog', dialog => {15
     expect(dialog.message()).toEqual('Are you sure you want to delete?');
     expect(dialog.type()).toBe('confirm');
     dialog.accept();
