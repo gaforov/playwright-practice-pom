@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 // Get the environment from command-line args or default to 'qa'
-const ENV = process.env.TEST_ENV || 'qa'; 
+const ENV = process.env.TEST_ENV || 'qa';
 
 // Define environment-specific URLs
 const baseUrls = {
@@ -29,6 +29,16 @@ const baseURL = baseUrls[ENV];
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+const windowConfig = {
+  viewport: { width: 1920, height: 1080 },
+  launchOptions: {
+    args: [
+      '--window-position=-1600,-1300',
+      '--window-size=1920,1080',
+    ],
+  },
+};
+
 export default defineConfig({
   // timeout: 40000,  // you can customize auto-wait time here, by dafault its 30 seconds. 
   // globalTimeout: 60000, // by default, there is no global timeout
@@ -49,7 +59,7 @@ export default defineConfig({
     // navigationTimeout: 5000,  // by default, no timeout
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL,
-    browserName: 'chromium',
+    // browserName: 'chromium', // <- This global browserName: 'chromium' setting overrides the browser setting inside each project
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -66,19 +76,24 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      // fullyParallel: true, // Optional: run tests in parallel for this browser
+      name: 'chrome',
+      use: {
+        ...devices['Desktop Chrome'], ...windowConfig,
+        // fullyParallel: true, // Optional: run tests in parallel for this browser
+      },
     },
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-      // fullyParallel: true, // Optional: run tests in parallel for this browser
+      use: {
+        ...devices['Desktop Firefox'], ...windowConfig,
+        // channel: 'firefox',       // 👈 This tells Playwright to use your system-installed Firefox
+        // fullyParallel: true,   // Optional: run tests in parallel for this browser
+      },
     },
     {
       name: 'edge',
       use: {
-        ...devices['Desktop Edge'], // <- will fallback to 'Desktop Chrome' if not defined
+        ...devices['Desktop Edge'], ...windowConfig,
         channel: 'msedge',          // <- tells Playwright to use Microsoft Edge
       },
       // fullyParallel: true, // Optional: run tests in parallel for this browser

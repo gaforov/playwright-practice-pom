@@ -23,7 +23,12 @@
     "install:browsers": "npx playwright install",
     "test:by-name": "npx playwright test --grep",
     "ng": "ng",
-    "start": "ng serve"
+    "start": "ng serve",
+    "pom-chrome": "npx playwright test tests/22-use-pom.spec.ts --project=chrome --headed",
+    "pom-firefox": "npx playwright test tests/22-use-pom.spec.ts --project=firefox --headed",
+    "pom-edge": "npx playwright test tests/22-use-pom.spec.ts --project=edge --headed",
+    "pom-webkit": "npx playwright test tests/22-use-pom.spec.ts --project=webkit --headed",
+    "pom-parallel": "npm run pom-chrome && npm run pom-firefox && npm run pom-edge"
   },
   "dependencies": {
     "@angular/animations": "^14.2.12",

@@ -47,3 +47,16 @@ test('parameterized method', async ({ page }) => {
     const rangeInputField = page.getByPlaceholder('Range Picker');
     await expect(rangeInputField).toHaveValue(`${startDay} - ${endDay}`);
 });
+
+// Log Which Browser Is Actually Running
+test('check browser', async ({ page, browserName }) => {
+    console.log('Running on browser:', browserName);
+    await page.goto('https://example.com');
+});
+
+// Check Which Browser Version Is Running
+test('Print browser version', async ({ browser }) => {
+    const version = browser.version();
+    console.log('Browser version:', version);
+  });
+  
