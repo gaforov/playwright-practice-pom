@@ -28,7 +28,8 @@
     "pom-firefox": "npx playwright test tests/22-use-pom.spec.ts --project=firefox --headed",
     "pom-edge": "npx playwright test tests/22-use-pom.spec.ts --project=edge --headed",
     "pom-webkit": "npx playwright test tests/22-use-pom.spec.ts --project=webkit --headed",
-    "pom-parallel": "npm run pom-chrome && npm run pom-firefox && npm run pom-edge"
+    "pom-sequential": "npm run pom-chrome && npm run pom-firefox && npm run pom-edge",
+    "pom-parallel": "npm run pom-chrome & npm run pom-firefox & npm run pom-edge"
   },
   "dependencies": {
     "@angular/animations": "^14.2.12",
@@ -84,6 +85,7 @@
     "@types/leaflet": "1.2.3",
     "@types/node": "^12.12.70",
     "codelyzer": "^0.0.28",
+    "concurrently": "^9.1.2",
     "conventional-changelog-cli": "^2.2.2",
     "dotenv": "^16.4.7",
     "npm-run-all": "4.0.2",
