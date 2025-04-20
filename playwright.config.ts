@@ -68,7 +68,20 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      //fullyParallel: true, // <--- optioanlly, you can run in parallel per each browser
+      // fullyParallel: true, // Optional: run tests in parallel for this browser
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+      // fullyParallel: true, // Optional: run tests in parallel for this browser
+    },
+    {
+      name: 'edge',
+      use: {
+        ...devices['Desktop Edge'], // <- will fallback to 'Desktop Chrome' if not defined
+        channel: 'msedge',          // <- tells Playwright to use Microsoft Edge
+      },
+      // fullyParallel: true, // Optional: run tests in parallel for this browser
     },
 
     // Alternative to .env file for handling testing environments. 
