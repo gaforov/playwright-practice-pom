@@ -34,7 +34,7 @@ const windowConfig = {
   launchOptions: {
     args: [
       '--window-position=-1600,-1300',
-      '--window-size=1920,1080',
+      // '--window-size=1920,1080',
     ],
   },
 };
@@ -85,11 +85,13 @@ export default defineConfig({
     {
       name: 'firefox',
       use: {
-        ...devices['Desktop Firefox'], ...windowConfig,
+        ...devices['Desktop Firefox'],
+        ...windowConfig, // 🛈 Note: --window-position from `windowConfig` is likely ignored by Firefox due to limited support for custom window positioning in headless/headed mode.
         // channel: 'firefox',       // 👈 This tells Playwright to use your system-installed Firefox
-        // fullyParallel: true,   // Optional: run tests in parallel for this browser
+        // fullyParallel: true,      // Optional: run tests in parallel for this browser
       },
     },
+    
     {
       name: 'edge',
       use: {
